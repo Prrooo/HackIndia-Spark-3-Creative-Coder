@@ -1,20 +1,20 @@
 "use client";
+
 import HeaderSection from "@/components/HeaderSection";
 import { Hero } from "@/components/Hero";
 import { Upload } from "@/components/Upload";
-import { UploadImage } from "@/components/UploadImage";
-import Image from "next/image";
-import { useState } from "react";
-
 import WalletContextProvider from "@/components/WalletContextProvider";
+import App from "next/app";
 
 export default function Home() {
-
   return (
-    <WalletContextProvider>
-      <HeaderSection/>
-      <Hero />
-      <Upload />
-    </WalletContextProvider>
+    <div className="h-[100vh] bg-black text-white">
+      {/* <App/> */}
+      <WalletContextProvider>
+        <HeaderSection />
+        <Hero />
+        <Upload />
+      </WalletContextProvider>
+    </div>
   );
 }

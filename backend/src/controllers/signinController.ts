@@ -2,6 +2,8 @@ import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import dotenv from 'dotenv';
 import { chown } from "fs";
+import { Connection, PublicKey, Transaction } from "@solana/web3.js";
+import nacl from "tweetnacl";
 
 dotenv.config();
 const prismaClient = new PrismaClient();
@@ -13,12 +15,30 @@ export const siginController = async (req: Request, res: Response) => {
     try {
         // Todo: ADD sign verification logic here
 
-        const hardcodedWalletAddress = "ljasdlkfjlakdf";
+        console.log("working")
+
+        const { publicKey, signature } = req.body;
+        const message = new TextEncoder().encode("Sign into mechanical turks");
+
+        const result = nacl.sign.detached.verify(
+            message,
+            new Uint8Array(signature.data),
+            new PublicKey(publicKey).toBytes(),
+        );
+
+
+        if (!result) {
+            return res.status(411).json({
+                message: "Incorrect signature"
+            })
+        }
+
+        // const hardcodedWalletAddress = "ljasdlkfjlakdf";
         const JWT_SCRET = process.env.JWT_SCRET;
 
         const existingUser = await prismaClient.user.findFirst({
             where: {
-                address: hardcodedWalletAddress,
+                address: publicKey,
             }
         });
 
@@ -34,7 +54,7 @@ export const siginController = async (req: Request, res: Response) => {
         else {
             const user = await prismaClient.user.create({
                 data: {
-                    address: hardcodedWalletAddress,
+                    address: publicKey,
                     email: "randomEmail@gmail.com"
                 }
             })
@@ -54,7 +74,7 @@ export const siginController = async (req: Request, res: Response) => {
     }
 }
 
-export const workerSiginController  = async (req: Request, res: Response) => {
+export const workerSiginController = async (req: Request, res: Response) => {
     try {
         // Todo: ADD sign verification logic here
 
@@ -81,8 +101,8 @@ export const workerSiginController  = async (req: Request, res: Response) => {
                 data: {
                     address: hardcodedWalletAddress,
                     email: "randomEmail@gmail.com",
-                    pending_amount:0,
-                    locked_amount:0,
+                    pending_amount: 0,
+                    locked_amount: 0,
                 }
             })
             const token = await jwt.sign({

@@ -1,11 +1,12 @@
 "use client"
-import { Appbar } from '@/components/Appbar';
+import HeaderSection from '@/components/HeaderSection';
 import { BACKEND_URL } from '@/utils';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 async function getTaskDetails(taskId: string) {
-    const response = await axios.get(`${BACKEND_URL}/v1/user/task?taskId=${taskId}`, {
+    // http://localhost:5000/api/user/task
+    const response = await axios.get(`http://localhost:${BACKEND_URL}/api/user/${taskId}`, {
         headers: {
             "Authorization": localStorage.getItem("token")
         }
@@ -35,12 +36,13 @@ export default function Page({params: {
     }, [taskId]);
 
     return <div>
-        <Appbar />
+        {/* <Appbar /> */}
+        <HeaderSection/>
         <div className='text-2xl pt-20 flex justify-center'>
             {taskDetails.title}
         </div>
         <div className='flex justify-center pt-8'>
-            {Object.keys(result || {}).map(taskId => <Task imageUrl={result[taskId].option.imageUrl} votes={result[taskId].count} />)}
+            {Object.keys(result || {}).map(taskId => <Task key={taskId} imageUrl={result[taskId].option.imageUrl} votes={result[taskId].count} />)}
         </div>
     </div>
 }

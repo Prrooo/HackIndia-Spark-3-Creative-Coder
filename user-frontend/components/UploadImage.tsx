@@ -11,9 +11,10 @@ export function UploadImage({ onImageAdded, image }: {
 
     async function onFileSelect(e: any) {
         setUploading(true);
+        console.log("working");
         try {
             const file = e.target.files[0];
-            const response = await axios.get(`${BACKEND_URL}/v1/user/presignedUrl`, {
+            const response = await axios.get(`http://localhost:5010/api/user/presignedUrl`, {
                 headers: {
                     "Authorization": localStorage.getItem("token")
                 }
@@ -44,7 +45,7 @@ export function UploadImage({ onImageAdded, image }: {
     }
 
     return <div>
-        <div className="w-40 h-40 rounded border text-2xl cursor-pointer">
+        <div className="w-40 h-40 text-white rounded border text-2xl cursor-pointer">
                 <div className="h-full flex justify-center flex-col relative w-full">
                     <div className="h-full flex justify-center w-full pt-16 text-4xl">
                     {uploading ? <div className="text-sm">Loading...</div> : <>

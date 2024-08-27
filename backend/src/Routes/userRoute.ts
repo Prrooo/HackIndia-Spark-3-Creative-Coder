@@ -4,17 +4,22 @@ import { siginController } from "../controllers/signinController";
 import { taskController } from "../controllers/taskControler";
 import { getAllTask } from "../controllers/getAllTaskControler";
 
-const router=express.Router();
+import { imageURLImport } from "../controllers/imageURL";
+
+const router = express.Router();
 
 
 
 router.post('/signin', siginController);
-router.post('/presignedUrl',authMiddleware,(req,res)=>{
+router.post('/presignedUrl', authMiddleware, (req, res) => {
     return res.status(200).json({
-        message:"working"
+        message: "working"
     })
 });
-router.post('/task',authMiddleware,taskController)
-router.get("/task/:id",authMiddleware,getAllTask)
+router.post('/task', authMiddleware, taskController)
+router.get("/task/:id", authMiddleware, getAllTask);
+router.get("/presignedUrl", authMiddleware,imageURLImport)
+
+// router.post('/imageUpload',imageUpload);
 
 export default router;

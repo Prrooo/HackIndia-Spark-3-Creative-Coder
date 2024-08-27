@@ -19,7 +19,7 @@ export const Appbar = () => {
         const signature = await signMessage?.(message);
         console.log(signature)
         console.log(publicKey)
-        const response = await axios.post(`${BACKEND_URL}/api/user/signin`, {
+        const response = await axios.post(`http://localhost:${BACKEND_URL}/api/user/signin`, {
             signature,
             publicKey: publicKey?.toString()
         });
@@ -40,3 +40,10 @@ export const Appbar = () => {
         </div>
     </div>
 }
+
+
+// export default function Home(){
+//     return <div>
+//         working
+//     </div>
+// }
