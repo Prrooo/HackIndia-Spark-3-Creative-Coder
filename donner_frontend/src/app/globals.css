@@ -1,4 +1,4 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -30,4 +30,54 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+} */
+/* styles/globals.css */
+
+/* styles/globals.css */
+
+/* styles/globals.css nbnbnnnf*/
+@keyframes gradientBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.hero-caption {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradientBackground 15s ease infinite;
+  position: relative;
+  color: white;
+}
+
+.hero-caption::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  /* Adjust the opacity for a darker overlay */
+  z-index: 1;
+}
+
+.hero-caption .container,
+.hero-caption .row,
+.hero-caption .col-lg-6 {
+  position: relative;
+  z-index: 3;
+}
+
+.mobile-preview {
+  position: relative;
+  z-index: 3;
 }
