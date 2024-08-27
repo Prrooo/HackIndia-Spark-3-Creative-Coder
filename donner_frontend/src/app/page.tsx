@@ -45,7 +45,7 @@ const handleNext = () => {
                                 </h3>
                                 <div className="survey-container">
           <h3>{questions[currentQuestion]}</h3>
-          
+
           <div className="button-group">
             <button onClick={handlePrevious} disabled={currentQuestion === 0}>
               Previous
